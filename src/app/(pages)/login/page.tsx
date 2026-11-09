@@ -1,7 +1,5 @@
+import AuthLayout from "@/app/components/layout/AuthLayout";
+
 export default function LoginPage() {
-  return (
-    <main>
-      <h1>Login</h1>
-    </main>
-  );
+  return <AuthLayout heading="Log in to your account" imageSrc="/login.webp" />;
 }
