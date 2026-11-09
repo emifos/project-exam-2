@@ -88,7 +88,7 @@ export default function Header() {
       </nav>
       {/* Mobile menu */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 bg-linear-to-b from-gradient-start via-mist to-gradient-end  md:hidden">
+        <div className="fixed inset-0 z-50 bg-linear-to-b from-gradient-start via-mist to-gradient-end md:hidden">
           <div className="mx-4 flex items-center justify-between border-b border-line py-4">
             <Link href="/" onClick={() => setIsOpen(false)}>
               <Image
