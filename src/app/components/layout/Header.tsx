@@ -33,7 +33,7 @@ export default function Header() {
     <header>
       <nav
         aria-label="Main"
-        className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4"
+        className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4"
       >
         <Link href="/">
           <Image
@@ -92,7 +92,7 @@ export default function Header() {
           <div className="mx-4 flex items-center justify-between border-b border-line py-4">
             <Link href="/" onClick={() => setIsOpen(false)}>
               <Image
-                src="/logo-dark-small.png"
+                src="/logo-dark-header.png"
                 alt="Holidaze logo - go to homepage"
                 width={140}
                 height={40}

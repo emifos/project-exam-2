@@ -2,7 +2,7 @@
 
 type AccountType = "customer" | "manager";
 
-type accountTypeToggleProps = {
+type AccountTypeToggleProps = {
   value: AccountType;
   onChange: (value: AccountType) => void;
 };
@@ -26,13 +26,13 @@ const options = [
 export default function AccountTypeToggle({
   value,
   onChange,
-}: accountTypeToggleProps) {
+}: AccountTypeToggleProps) {
   const selected = options.find((option) => option.value === value)!;
 
   return (
     <fieldset className="flex flex-col items-center gap-3 text-center">
       <legend className="mb-3 text-sm text-ink">Select account type:</legend>
-      <div className="flex gap-2">
+      <div className="grid grid-cols-2 gap-2">
         {options.map((option) => {
           const isSelected = option.value === value;
           return (

@@ -23,7 +23,7 @@ export default function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-16">
         <Link href="/">
           <Image
-            src="/logo-dark-small.png"
+            src="/logo-dark-header.png"
             alt="Holidaze logo - go to homepage"
             width={140}
             height={40}
