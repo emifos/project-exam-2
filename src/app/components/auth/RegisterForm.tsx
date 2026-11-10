@@ -2,12 +2,15 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import AccountTypeToggle from "./AccountTypeToggle";
+import { registerUser } from "@/app/lib/auth";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const USERNAME_PATTERN = /^\w+$/;
 
 export default function RegisterForm() {
+  const router = useRouter();
   const [accountType, setAccountType] = useState<"customer" | "manager">(
     "customer",
   );
@@ -18,15 +21,20 @@ export default function RegisterForm() {
     password: "",
     confirmPassword: "",
   });
+
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formError, setFormError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isLoading) return;
 
     const name = formData.name.trim();
     const email = formData.email.trim();
@@ -57,15 +65,30 @@ export default function RegisterForm() {
     }
 
     setErrors(newErrors);
+    setFormError("");
+    setSuccessMessage("");
 
     if (Object.keys(newErrors).length > 0) return;
 
-    console.log({
-      name,
-      email,
-      password: formData.password,
-      venueManager: accountType === "manager",
-    });
+    setIsLoading(true);
+    try {
+      await registerUser({
+        name,
+        email,
+        password: formData.password,
+        venueManager: accountType === "manager",
+      });
+
+      setSuccessMessage("Account created! Redirecting to login...");
+      router.push("/login");
+    } catch (error) {
+      setFormError(
+        error instanceof Error
+          ? error.message
+          : "Registration failed. Please try again.",
+      );
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -80,9 +103,11 @@ export default function RegisterForm() {
             id="name"
             name="name"
             type="text"
+            autoComplete="nickname"
             placeholder="User_name"
             value={formData.name}
             onChange={handleChange}
+            disabled={isLoading}
             required
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? "name-error" : undefined}
@@ -102,9 +127,11 @@ export default function RegisterForm() {
             id="email"
             name="email"
             type="email"
+            autoComplete="email"
             placeholder="example@stud.noroff.no"
             value={formData.email}
             onChange={handleChange}
+            disabled={isLoading}
             required
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "email-error" : undefined}
@@ -124,9 +151,11 @@ export default function RegisterForm() {
             id="password"
             name="password"
             type="password"
+            autoComplete="new-password"
             placeholder="Create password"
             value={formData.password}
             onChange={handleChange}
+            disabled={isLoading}
             required
             aria-invalid={!!errors.password}
             aria-describedby={errors.password ? "password-error" : undefined}
@@ -146,9 +175,11 @@ export default function RegisterForm() {
             id="confirmPassword"
             name="confirmPassword"
             type="password"
+            autoComplete="new-password"
             placeholder="Confirm password"
             value={formData.confirmPassword}
             onChange={handleChange}
+            disabled={isLoading}
             required
             aria-invalid={!!errors.confirmPassword}
             aria-describedby={
@@ -162,11 +193,23 @@ export default function RegisterForm() {
             </p>
           )}
         </div>
+        {formError && (
+          <p role="alert" className="text-sm text-error">
+            {formError}
+          </p>
+        )}
+        {successMessage && (
+          <p role="status" className="text-sm text-success">
+            {successMessage}
+          </p>
+        )}
         <button
           type="submit"
-          className="mt-2 rounded-md bg-accent py-2 text-white hover:bg-accent-hover"
+          disabled={isLoading}
+          aria-busy={isLoading}
+          className="mt-2 rounded-md bg-accent py-2 text-white hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Submit
+          {isLoading ? "Creating account..." : "Submit"}
         </button>
       </form>
       <div className="flex justify-center gap-1 text-sm">
