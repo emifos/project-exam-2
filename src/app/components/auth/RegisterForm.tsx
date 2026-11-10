@@ -127,7 +127,7 @@ export default function RegisterForm() {
             id="email"
             name="email"
             type="email"
-            autoComplete="email"
+            autoComplete="username"
             placeholder="example@stud.noroff.no"
             value={formData.email}
             onChange={handleChange}
