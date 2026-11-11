@@ -3,7 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Menu, X, Plus } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 const visitorLinks = [{ label: "Explore", href: "/" }];
 
@@ -20,24 +22,34 @@ const managerLinks = [
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  //BYTTES UT SENERE
-  const role: string = "visitor";
+  const router = useRouter();
+  const { user, logout } = useAuth();
 
   let links = visitorLinks;
-  if (role === "customer") links = customerLinks;
-  if (role === "manager") links = managerLinks;
+  if (user?.venueManager) links = managerLinks;
+  else if (user) links = customerLinks;
 
-  const isLoggedIn = role !== "visitor";
+  const isLoggedIn = !!user;
+  const createLinks = links.find((link) => link.href === "/venues/create");
+  const mobileLinks = createLinks
+    ? [createLinks, ...links.filter((link) => link !== createLinks)]
+    : links;
+
+  function handleLogout() {
+    logout();
+    setIsOpen(false);
+    router.push("/");
+  }
 
   return (
     <header>
       <nav
         aria-label="Main"
-        className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4"
+        className="mx-auto flex max-w-8xl items-center justify-between px-8 py-4"
       >
         <Link href="/">
           <Image
-            src="/logo-dark-small.png"
+            src="/logo-dark-header.png"
             alt="Holidaze logo - go to homepage"
             width={140}
             height={40}
@@ -45,11 +57,21 @@ export default function Header() {
           />
         </Link>
         {/* Desktop */}
-        <ul className="hidden items-center gap-6 md:flex">
+        <ul className="hidden items-center gap-8 md:flex">
           {links.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className="text-ink hover:text-accent">
+              <Link
+                href={link.href}
+                className={
+                  link.href === "/venues/create"
+                    ? "inline-flex items-center gap-2 rounded-md bg-accent px-4 py-1.5 text-white hover:bg-accent-hover"
+                    : "text-ink hover:text-accent"
+                }
+              >
                 {link.label}
+                {link.href === "/venues/create" && (
+                  <Plus aira-hidden="true" className="size-4" />
+                )}
               </Link>
             </li>
           ))}
@@ -68,7 +90,12 @@ export default function Header() {
           )}
           {isLoggedIn && (
             <li>
-              <button className="text-ink hover:text-accent">Logout</button>
+              <button
+                onClick={handleLogout}
+                className="text-ink hover:text-accent"
+              >
+                Log out
+              </button>
             </li>
           )}
         </ul>
@@ -108,14 +135,21 @@ export default function Header() {
             </button>
           </div>
           <ul className="flex flex-col gap-6 px-4 py-6">
-            {links.map((link) => (
+            {mobileLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={() => setIsOpen(false)}
-                  className="text-ink hover:text-accent"
+                  className={
+                    link.href === "/venues/create"
+                      ? "inline-flex items-center gap-2 rounded-md bg-accent px-4 py-1.5 text-white hover:bg-accent-hover"
+                      : "text-ink hover:text-accent"
+                  }
                 >
                   {link.label}
+                  {link.href === "/venues/create" && (
+                    <Plus aria-hidden="true" className="size-4" />
+                  )}
                 </Link>
               </li>
             ))}
@@ -139,7 +173,12 @@ export default function Header() {
             )}
             {isLoggedIn && (
               <li>
-                <button className="text-ink hover:text-accent">Logout</button>
+                <button
+                  onClick={handleLogout}
+                  className="text-ink hover:text-accent"
+                >
+                  Log out
+                </button>
               </li>
             )}
           </ul>

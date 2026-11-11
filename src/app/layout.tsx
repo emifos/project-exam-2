@@ -1,3 +1,4 @@
+import AuthProvider from "./components/context/AuthContext";
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import Header from "./components/layout/Header";
@@ -22,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={outfit.variable}>
       <body className="flex flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AuthProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

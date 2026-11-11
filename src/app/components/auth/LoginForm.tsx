@@ -4,12 +4,14 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AccountTypeToggle from "./AccountTypeToggle";
-import { loginUser, saveUser } from "@/app/lib/auth";
+import { loginUser } from "@/app/lib/auth";
+import { useAuth } from "../context/AuthContext";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function LoginForm() {
   const router = useRouter();
+  const { login } = useAuth();
   const [accountType, setAccountType] = useState<"customer" | "manager">(
     "customer",
   );
@@ -54,7 +56,7 @@ export default function LoginForm() {
     setIsLoading(true);
     try {
       const user = await loginUser({ email, password: formData.password });
-      saveUser(user);
+      login(user);
       router.push("/");
     } catch (error) {
       setFormError(
