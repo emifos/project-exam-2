@@ -49,11 +49,11 @@ export default function Header() {
       >
         <Link href="/">
           <Image
-            src="/logo-dark-header.png"
+            src="/holidaze-logo-1.svg"
             alt="Holidaze logo - go to homepage"
             width={140}
             height={40}
-            className="h-10 w-auto"
+            className="h-8 w-auto"
           />
         </Link>
         {/* Desktop */}
