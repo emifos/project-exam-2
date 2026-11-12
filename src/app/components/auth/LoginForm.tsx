@@ -56,6 +56,15 @@ export default function LoginForm() {
     setIsLoading(true);
     try {
       const user = await loginUser({ email, password: formData.password });
+
+      const selectedManager = accountType === "manager";
+      if (!!user.venueManager !== selectedManager) {
+        throw new Error(
+          selectedManager
+            ? "This account is not a venue manager account."
+            : "This is a venue manager account. Select Venue Manager to log in. ",
+        );
+      }
       login(user);
       router.push("/");
     } catch (error) {

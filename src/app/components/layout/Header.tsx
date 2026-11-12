@@ -38,7 +38,7 @@ export default function Header() {
   function handleLogout() {
     logout();
     setIsOpen(false);
-    router.push("/");
+    router.push("/login");
   }
 
   return (
