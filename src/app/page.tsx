@@ -1,4 +1,5 @@
 import { getVenues } from "./lib/venues";
+import VenueCard from "./components/venues/VenueCard";
 
 export default async function Home() {
   const venues = await getVenues();
@@ -9,10 +10,10 @@ export default async function Home() {
       <p className="mb-8 text-center text-slate">
         Explore places worth staying.
       </p>
-      <ul className="flex flex-col gap-2">
+      <ul className="grid gap-6 sm:grid-cols-3 lg:grid-cols:4">
         {venues.map((venue) => (
           <li key={venue.id}>
-            {venue.name}, {venue.price}
+            <VenueCard venue={venue} />
           </li>
         ))}
       </ul>
