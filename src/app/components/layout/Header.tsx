@@ -70,7 +70,7 @@ export default function Header() {
               >
                 {link.label}
                 {link.href === "/venues/create" && (
-                  <Plus aira-hidden="true" className="size-4" />
+                  <Plus aria-hidden="true" className="size-4" />
                 )}
               </Link>
             </li>
@@ -119,11 +119,11 @@ export default function Header() {
           <div className="mx-4 flex items-center justify-between border-b border-line py-4">
             <Link href="/" onClick={() => setIsOpen(false)}>
               <Image
-                src="/logo-dark-header.png"
+                src="/holidaze-logo-1.svg"
                 alt="Holidaze logo - go to homepage"
                 width={140}
                 height={40}
-                className="h-10 w-auto"
+                className="h-8 w-auto"
               />
             </Link>
             <button

@@ -51,7 +51,7 @@ export default function Footer() {
             {footerLinks.map((link) => (
               <li key={link.label}>
                 <Link
-                  href="link.href"
+                  href={link.href}
                   className="text-sm text-ink hover:text-accent"
                 >
                   {link.label}
