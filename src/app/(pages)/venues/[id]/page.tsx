@@ -4,6 +4,7 @@ import VenueHeader from "@/app/components/venues/VenueHeader";
 import VenueGallery from "@/app/components/venues/VenueGallery";
 import VenueAbout from "@/app/components/venues/VenueAbout";
 import VenueAmenities from "@/app/components/venues/VenueAmenities";
+import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 
 export default async function VenuePage({
   params,
@@ -19,6 +20,9 @@ export default async function VenuePage({
 
   return (
     <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-12">
+      <Breadcrumbs
+        items={[{ label: "Home", href: "/" }, { label: "Venue Detail" }]}
+      />
       <div className="flex flex-col gap-6 md:rounded-3xl md:bg-white md:p-8 md:shadow-lg">
         <article className="flex flex-col gap-3 rounded-3xl bg-white p-5 shadow-lg md:rounded-noe md:bg-transparent md:p-0 md:shadow-none">
           <VenueHeader venue={venue} />
