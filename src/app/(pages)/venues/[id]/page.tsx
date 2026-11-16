@@ -5,6 +5,7 @@ import VenueGallery from "@/app/components/venues/VenueGallery";
 import VenueAbout from "@/app/components/venues/VenueAbout";
 import VenueAmenities from "@/app/components/venues/VenueAmenities";
 import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
+import BookingCard from "@/app/components/venues/BookingCard";
 
 export default async function VenuePage({
   params,
@@ -35,6 +36,7 @@ export default async function VenuePage({
           <VenueAmenities meta={venue.meta} />
           <hr className="border-line" />
         </article>
+        <BookingCard venue={venue} />
       </div>
     </main>
   );

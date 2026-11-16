@@ -1,0 +1,98 @@
+/* Booking calendar */
+.booking-calendar .rdp-root {
+  --rdp-accent-color: var(--color-accent);
+  --rdp-accent-background-color: var(--color-accent-light);
+  --rdp-selected-border: 1px solid var(--rdp-accent-color);
+  width: 100%;
+}
+
+.booking-calendar .rdp-button_previous {
+  margin-left: 2rem;
+}
+
+.booking-calendar .rdp-button_next {
+  margin-right: 2rem;
+}
+
+.booking-calendar .rdp-chevron {
+  fill: var(--color-slate);
+  width: 14px;
+  height: 14px;
+}
+
+/* Full width*/
+.booking-calendar .rdp-months,
+.booking-calendar .rdp-month,
+.booking-calendar .rdp-month-grid {
+  width: 100%;
+  max-width: none;
+}
+
+.booking-calendar .rdp-month_grid {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 3px 10px;
+}
+
+/*Month name*/
+.booking-calendar .rdp-month_caption {
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.booking-calendar .rdp-weekday {
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+/* Each day as a rounded box*/
+.booking-calendar .rdp-day {
+  width: auto;
+  height: auto;
+}
+
+.booking-calendar .rdp-day_button {
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  border: none;
+  border-radius: 6px;
+  background-color: var(--color-mist);
+  color: var(--color-ink);
+  font-size: 0.75rem;
+}
+
+/*Booked days*/
+.booking-calendar .booked-day .rdp-day_button {
+  background-color: var(--color-line);
+  color: var(--color-slate);
+  text-decoration: line-through;
+}
+
+/*Selected range */
+.booking-calendar .rdp-range_start,
+.booking-calendar .rdp-range_middle,
+.booking-calendar .rdp-range_end {
+  background: none;
+}
+
+.booking-calendar .rdp-range_start .rdp-day_button,
+.booking-calendar .rdp-range_end .rdp-day_button {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  font-weight: 400;
+}
+
+.booking-calendar .rdp-range_middle .rdp-day_button {
+  background-color: var(--color-accent-light);
+  color: var(--color-white);
+  font-weight: 400;
+}
+
+@media (min-width: 768px) {
+  .booking-calendar .rdp-month_grid {
+    border-spacing: 18px 12px;
+  }
+}

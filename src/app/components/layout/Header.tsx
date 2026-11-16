@@ -15,8 +15,8 @@ const customerLinks = [
 ];
 
 const managerLinks = [
-  { label: "Explore", href: "/" },
   { label: "Create Venue", href: "/venues/create" },
+  { label: "Explore", href: "/" },
   { label: "Profile", href: "/profile" },
 ];
 
@@ -45,7 +45,7 @@ export default function Header() {
     <header>
       <nav
         aria-label="Main"
-        className="mx-auto flex max-w-8xl items-center justify-between px-8 py-4"
+        className="mx-auto flex max-w-8xl items-center justify-between px-4 py-6 md:px-8"
       >
         <Link href="/">
           <Image
@@ -64,7 +64,7 @@ export default function Header() {
                 href={link.href}
                 className={
                   link.href === "/venues/create"
-                    ? "inline-flex items-center gap-2 rounded-md bg-accent px-4 py-1.5 text-white hover:bg-accent-hover"
+                    ? "inline-flex items-center gap-2 rounded-md border border-accent px-4 py-1 text-white bg-accent hover:bg-accent-hover"
                     : "text-ink hover:text-accent"
                 }
               >
@@ -116,7 +116,7 @@ export default function Header() {
       {/* Mobile menu */}
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-linear-to-b from-gradient-start via-mist to-gradient-end md:hidden">
-          <div className="mx-4 flex items-center justify-between border-b border-line py-4">
+          <div className="mx-4 flex items-center justify-between border-b border-line py-6">
             <Link href="/" onClick={() => setIsOpen(false)}>
               <Image
                 src="/holidaze-logo-1.svg"
