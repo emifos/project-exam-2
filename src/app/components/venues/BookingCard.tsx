@@ -31,7 +31,7 @@ export default function BookingCard({ venue }: BookingCardProps) {
   return (
     <section
       aria-labelledby="booking-heading"
-      className="flex flex-col gap-4 mt-6 rounded-3xl border border-line bg-white p-5 shadow-lg md:rounded-[50px] md:p-8"
+      className="flex flex-col gap-4 mt-6 mb-8 rounded-3xl border border-line bg-white p-5 shadow-lg md:rounded-[50px] md:p-8"
     >
       <h2 id="booking-heading" className="sr-only">
         Book this venue

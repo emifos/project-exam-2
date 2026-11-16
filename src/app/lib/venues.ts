@@ -32,3 +32,16 @@ export async function getVenuesById(id: string): Promise<Venue | null> {
 
   return json.data;
 }
+
+export async function searchVenues(query: string): Promise<Venue[]> {
+  const params = new URLSearchParams({ q: query });
+  const response = await apiFetch(`/holidaze/venues/search?${params}`);
+
+  const json = await response.json().catch(() => null);
+
+  if (!response.ok || !json) {
+    throw new Error(json?.errors?.[0]?.message ?? "Could not search venues.");
+  }
+
+  return json.data;
+}
