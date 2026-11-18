@@ -53,3 +53,14 @@ export type Venue = {
   owner?: Profile;
   bookings?: Booking[];
 };
+
+export type VenueRequest = {
+  name: string;
+  description: string;
+  price: number;
+  maxGuests: number;
+  rating: number;
+  media: Media[];
+  meta?: VenueMeta;
+  location?: Partial<VenueLocation>;
+};

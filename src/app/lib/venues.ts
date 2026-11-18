@@ -1,5 +1,5 @@
-import type { Venue } from "../types/venue";
-import { apiFetch } from "./api";
+import type { Venue, VenueRequest } from "../types/venue";
+import { apiFetch, authFetch } from "./api";
 
 export async function getVenues(): Promise<Venue[]> {
   const response = await apiFetch(
@@ -17,7 +17,7 @@ export async function getVenues(): Promise<Venue[]> {
 
 export async function getVenuesById(id: string): Promise<Venue | null> {
   const response = await apiFetch(
-    `/holidaze/venues/${id}?_owner=true&_booking=true`,
+    `/holidaze/venues/${id}?_owner=true&_bookings=true`,
   );
 
   if (response.status === 404) {
@@ -41,6 +41,24 @@ export async function searchVenues(query: string): Promise<Venue[]> {
 
   if (!response.ok || !json) {
     throw new Error(json?.errors?.[0]?.message ?? "Could not search venues.");
+  }
+
+  return json.data;
+}
+
+export async function createVenue(
+  data: VenueRequest,
+  accessToken: string | undefined,
+): Promise<Venue> {
+  const response = await authFetch("/holidaze/venues", accessToken, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+
+  const json = await response.json().catch(() => null);
+
+  if (!response.ok || !json) {
+    throw new Error(json?.errors?.[0]?.message ?? "Could not create venue.");
   }
 
   return json.data;

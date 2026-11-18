@@ -3,6 +3,9 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { Media, VenueMeta } from "@/app/types/venue";
+import { useAuth } from "../context/AuthContext";
+import { createVenue } from "@/app/lib/venues";
+import { AuthError } from "@/app/lib/api";
 import DetailsFields, { type VenueDetails } from "./DetailsFields";
 import MediaFields from "./MediaFields";
 import FacilitiesFields from "./FacilitiesFields";
@@ -10,6 +13,7 @@ import LocationFields, { type LocationForm } from "./LocationFields";
 
 export default function VenueForm() {
   const router = useRouter();
+  const { user } = useAuth();
 
   const [details, setDetails] = useState<VenueDetails>({
     name: "",
@@ -34,6 +38,8 @@ export default function VenueForm() {
     continent: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formError, setFormError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleDetailsChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -52,8 +58,9 @@ export default function VenueForm() {
     setLocation((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
+    setFormError("");
 
     const newErrors: Record<string, string> = {};
     const price = Number(details.price);
@@ -100,7 +107,22 @@ export default function VenueForm() {
       location,
     };
 
-    console.log(venueData);
+    setIsLoading(true);
+
+    try {
+      const venue = await createVenue(venueData, user?.accessToken);
+      router.push(`/venues/${venue.id}`);
+    } catch (error) {
+      if (error instanceof AuthError) {
+        router.push("/login");
+        return;
+      }
+      setFormError(
+        error instanceof Error ? error.message : "Something went wrong.",
+      );
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -118,6 +140,11 @@ export default function VenueForm() {
       <FacilitiesFields meta={meta} onChange={handleMetaChange} />
       <hr className="border-line" />
       <LocationFields location={location} onChange={handleLocationChange} />
+      {formError && (
+        <p role="alert" className="text-sm text-error">
+          {formError}
+        </p>
+      )}
       <div className="flex justify-end gap-3">
         <button
           type="button"
@@ -128,9 +155,10 @@ export default function VenueForm() {
         </button>
         <button
           type="submit"
+          disabled={isLoading}
           className="cursor-pointer rounded-md bg-accent px-5 py-2 text-white hover:bg-accent-hover"
         >
-          Create venue
+          {isLoading ? "Creating..." : "Create venue"}
         </button>
       </div>
     </form>
