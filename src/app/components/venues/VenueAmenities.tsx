@@ -1,16 +1,9 @@
-import { Car, Coffee, PawPrint, Wifi } from "lucide-react";
 import type { VenueMeta } from "@/app/types/venue";
+import { amenities } from "@/app/lib/amenities";
 
 type VenueAmenitiesProps = {
   meta: VenueMeta;
 };
-
-const amenities = [
-  { key: "wifi", label: "Free Wifi", icon: Wifi },
-  { key: "parking", label: "Free parking", icon: Car },
-  { key: "breakfast", label: "Breakfast", icon: Coffee },
-  { key: "pets", label: "Pets allowed", icon: PawPrint },
-] as const;
 
 export default function VenueAmenities({ meta }: VenueAmenitiesProps) {
   const available = amenities.filter((amenity) => meta[amenity.key]);
