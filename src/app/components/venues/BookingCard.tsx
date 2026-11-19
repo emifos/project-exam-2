@@ -5,6 +5,7 @@ import type { DateRange } from "react-day-picker";
 import { CalendarDays, Minus, Plus } from "lucide-react";
 import type { Venue } from "@/app/types/venue";
 import BookingCalendar from "./BookingCalendar";
+import { useAuth } from "../context/AuthContext";
 
 type BookingCardProps = {
   venue: Venue;
@@ -18,6 +19,8 @@ export default function BookingCard({ venue }: BookingCardProps) {
   const [range, setRange] = useState<DateRange | undefined>();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [guests, setGuests] = useState(1);
+  const { user } = useAuth();
+  const isOwner = !!user && user.name === venue.owner?.name;
 
   function handleBook() {
     console.log({
@@ -26,6 +29,18 @@ export default function BookingCard({ venue }: BookingCardProps) {
       guests,
       venueId: venue.id,
     });
+  }
+
+  if (isOwner) {
+    return (
+      <section className="mt-6 mb-8 rounded-3xl border border-line bg-white p-5 shadow-lg md:rounded-[50px] md:p-8">
+        <h2 className="text-xl text-ink">This is your venue</h2>
+        <p className="mt-2 text-sm text-slate">
+          You can&apos;t book your own venue. Guests will be able to book it
+          here.
+        </p>
+      </section>
+    );
   }
 
   return (
