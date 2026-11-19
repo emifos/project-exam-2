@@ -6,6 +6,7 @@ import VenueAbout from "@/app/components/venues/VenueAbout";
 import VenueAmenities from "@/app/components/venues/VenueAmenities";
 import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import BookingCard from "@/app/components/venues/BookingCard";
+import EditVenueButton from "@/app/components/venues/EditVenueButton";
 
 export default async function VenuePage({
   params,
@@ -26,7 +27,10 @@ export default async function VenuePage({
       />
       <div className="flex flex-col gap-6 md:rounded-3xl md:bg-white md:p-8 md:shadow-lg">
         <article className="flex flex-col gap-3 rounded-3xl bg-white p-5 shadow-lg md:rounded-noe md:bg-transparent md:p-0 md:shadow-none">
-          <VenueHeader venue={venue} />
+          <div className="flex items-start justify-between gap-4">
+            <VenueHeader venue={venue} />
+            <EditVenueButton venue={venue} />
+          </div>
           <VenueGallery media={venue.media} name={venue.name} />
           <VenueAbout
             description={venue.description}

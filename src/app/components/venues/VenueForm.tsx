@@ -2,40 +2,49 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import type { Media, VenueMeta } from "@/app/types/venue";
+import type { Media, VenueMeta, Venue } from "@/app/types/venue";
 import { useAuth } from "../context/AuthContext";
-import { createVenue } from "@/app/lib/venues";
+import { createVenue, updateVenue } from "@/app/lib/venues";
 import { AuthError } from "@/app/lib/api";
 import DetailsFields, { type VenueDetails } from "./DetailsFields";
 import MediaFields from "./MediaFields";
 import FacilitiesFields from "./FacilitiesFields";
 import LocationFields, { type LocationForm } from "./LocationFields";
 
-export default function VenueForm() {
+type VenueFormProps = {
+  venue?: Venue;
+};
+
+export default function VenueForm({ venue }: VenueFormProps) {
   const router = useRouter();
   const { user } = useAuth();
+  const isEditing = !!venue;
 
   const [details, setDetails] = useState<VenueDetails>({
-    name: "",
-    description: "",
-    price: "",
-    maxGuests: "",
+    name: venue?.name ?? "",
+    description: venue?.description ?? "",
+    price: venue ? String(venue.price) : "",
+    maxGuests: venue ? String(venue.maxGuests) : "",
   });
 
-  const [rating, setRating] = useState(0);
-  const [media, setMedia] = useState<Media[]>([{ url: "", alt: "" }]);
-  const [meta, setMeta] = useState<VenueMeta>({
-    wifi: false,
-    parking: false,
-    breakfast: false,
-    pets: false,
-  });
+  const [rating, setRating] = useState(venue?.rating ?? 0);
+  const [media, setMedia] = useState<Media[]>(
+    venue?.media?.length ? venue.media : [{ url: "", alt: "" }],
+  );
+  const [meta, setMeta] = useState<VenueMeta>(
+    venue?.meta ?? {
+      wifi: false,
+      parking: false,
+      breakfast: false,
+      pets: false,
+    },
+  );
   const [location, setLocation] = useState<LocationForm>({
-    address: "",
-    city: "",
-    zip: "",
-    country: "",
-    continent: "",
+    address: venue?.location?.address ?? "",
+    city: venue?.location?.city ?? "",
+    zip: venue?.location?.zip ?? "",
+    country: venue?.location?.country ?? "",
+    continent: venue?.location?.continent ?? "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState("");
@@ -110,8 +119,10 @@ export default function VenueForm() {
     setIsLoading(true);
 
     try {
-      const venue = await createVenue(venueData, user?.accessToken);
-      router.push(`/venues/${venue.id}`);
+      const savedVenue = isEditing
+        ? await updateVenue(venue.id, venueData, user?.accessToken)
+        : await createVenue(venueData, user?.accessToken);
+      router.push(`/venues/${savedVenue.id}`);
     } catch (error) {
       if (error instanceof AuthError) {
         router.push("/login");
@@ -124,6 +135,9 @@ export default function VenueForm() {
       setIsLoading(false);
     }
   }
+
+  const submitText = isEditing ? "Save changes" : "Create venue";
+  const loadingText = isEditing ? "Saving..." : "Creating...";
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-8">
@@ -158,7 +172,7 @@ export default function VenueForm() {
           disabled={isLoading}
           className="cursor-pointer rounded-md bg-accent px-5 py-2 text-white hover:bg-accent-hover"
         >
-          {isLoading ? "Creating..." : "Create venue"}
+          {isLoading ? loadingText : submitText}
         </button>
       </div>
     </form>

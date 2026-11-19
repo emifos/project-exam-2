@@ -63,3 +63,36 @@ export async function createVenue(
 
   return json.data;
 }
+
+export async function updateVenue(
+  id: string,
+  data: VenueRequest,
+  accessToken: string | undefined,
+): Promise<Venue> {
+  const response = await authFetch(`/holidaze/venues/${id}`, accessToken, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+
+  const json = await response.json().catch(() => null);
+
+  if (!response.ok || !json) {
+    throw new Error(json?.errors?.[0]?.message ?? "Could not update venue.");
+  }
+
+  return json.data;
+}
+
+export async function deleteVenue(
+  id: string,
+  accessToken: string | undefined,
+): Promise<void> {
+  const response = await authFetch(`/holidaze/venues/${id}`, accessToken, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const json = await response.json().catch(() => null);
+    throw new Error(json?.errors?.[0]?.message ?? "Could not delete venue.");
+  }
+}
