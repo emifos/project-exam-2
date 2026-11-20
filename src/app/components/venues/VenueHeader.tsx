@@ -24,8 +24,8 @@ export default function VenueHeader({ venue }: VenueHeaderProps) {
           </p>
         )}
         {location && (
-          <p className="flex items-center gap-1 text-base font-light">
-            <MapPin aria-hidden="true" className="size-4" />
+          <p className="flex items-start gap-1 text-base font-light">
+            <MapPin aria-hidden="true" className="mt-1 size-4 shrink-0" />
             {location}
           </p>
         )}
