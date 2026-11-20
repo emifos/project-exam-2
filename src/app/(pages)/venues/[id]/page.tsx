@@ -26,7 +26,7 @@ export default async function VenuePage({
         items={[{ label: "Home", href: "/" }, { label: "Venue Detail" }]}
       />
       <div className="flex flex-col gap-6 md:rounded-3xl md:bg-white md:p-8 md:shadow-lg">
-        <article className="flex flex-col gap-3 rounded-3xl bg-white p-5 shadow-lg md:rounded-noe md:bg-transparent md:p-0 md:shadow-none">
+        <article className="flex flex-col gap-3 rounded-3xl bg-white p-5 shadow-lg md:rounded-md md:bg-transparent md:p-0 md:shadow-none">
           <div className="flex items-start justify-between gap-4">
             <VenueHeader venue={venue} />
             <EditVenueButton venue={venue} />
