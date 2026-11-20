@@ -15,7 +15,7 @@ export default function Hero() {
       />
       <div className="absolute inset-x-0 bottom-0 bg-black/40 px-6 py-6 text-center text-white md:px-12 md:py-8 md:text-left">
         <p className="text-2xl font-semibold md:text-4xl">
-          Your text stay starts here.
+          Your next stay starts here.
         </p>
         <p className="text-sm md:text-xl md:pl-2 md:pt-2">
           Discover your perfect getaway with Holidaze
