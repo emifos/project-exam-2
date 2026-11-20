@@ -34,7 +34,7 @@ export default function SearchBar({
       className="flex flex-col gap-4 bg-white p-5 shadow-md md:mx-auto md:max-w-4xl md:items-center md:bg-transparent md:p-0 md:shadow-none"
     >
       <div className="md:text-center">
-        <h1 id="search-header" className="text-xl text-ink md:text-3xl">
+        <h1 id="search-heading" className="text-xl text-ink md:text-3xl">
           Find your next stay.
         </h1>
         <p className="text-sm text-slate">Explore places worth staying</p>

@@ -24,7 +24,9 @@ export default function VenueCard({ venue }: VenueCardProps) {
       </div>
       <div className="flex flex-1 flex-col gap-2 p-4">
         <div className="flex items-start justify-between gap-2">
-          <h2 className="inline-clamp-1 font-medium text-ink">{venue.name}</h2>
+          <h2 className="line-clamp-1 font-medium text-ink">
+            {venue.name || "Untitled venue"}
+          </h2>
           {venue.rating > 0 && (
             <p className="flex shrink-0 items-center gap-1 text-lg text-ink">
               <Star
