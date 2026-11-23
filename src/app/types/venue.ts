@@ -7,8 +7,9 @@ export type Profile = {
   name: string;
   email: string;
   bio: string | null;
-  avatar: Media;
-  banner: Media;
+  avatar?: Media;
+  banner?: Media;
+  venueManager?: boolean;
 };
 
 export type Booking = {
@@ -18,7 +19,8 @@ export type Booking = {
   guests: number;
   created: string;
   updated: string;
-  customer?: string;
+  customer?: Profile;
+  venue?: Venue;
 };
 
 export type VenueMeta = {

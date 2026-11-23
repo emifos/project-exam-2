@@ -5,12 +5,12 @@ export async function getProfile(
   name: string,
   accessToken: string | undefined,
 ): Promise<Profile> {
-  const response = await authFetch(`holidaze/profiles/${name}`, accessToken);
+  const response = await authFetch(`/holidaze/profiles/${name}`, accessToken);
 
   const json = await response.json().catch(() => null);
 
   if (!response.ok || !json) {
-    throw new Error(json?.erros?.[0]?.message ?? "Could not load profile.");
+    throw new Error(json?.errors?.[0]?.message ?? "Could not load profile.");
   }
 
   return json.data;

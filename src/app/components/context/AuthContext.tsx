@@ -6,7 +6,7 @@ import type { User } from "@/app/types/api";
 import { getUser, saveUser, clearUser } from "@/app/lib/auth";
 
 type AuthContextType = {
-  user: User | null;
+  user: User | null | undefined;
   login: (user: User) => void;
   logout: () => void;
 };
@@ -14,7 +14,7 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
     // localStorage only exists in the browser, so the user must be read after mount
