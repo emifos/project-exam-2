@@ -1,11 +1,15 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
 import { CalendarDays, Minus, Plus } from "lucide-react";
 import type { Venue } from "@/app/types/venue";
 import BookingCalendar from "./BookingCalendar";
+import { createBooking } from "@/app/lib/bookings";
 import { useAuth } from "../context/AuthContext";
+import { AuthError } from "@/app/lib/api";
 
 type BookingCardProps = {
   venue: Venue;
@@ -19,16 +23,50 @@ export default function BookingCard({ venue }: BookingCardProps) {
   const [range, setRange] = useState<DateRange | undefined>();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [guests, setGuests] = useState(1);
+  const [isBooking, setIsBooking] = useState(false);
+  const [bookingError, setBookingError] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
   const { user } = useAuth();
+  const router = useRouter();
   const isOwner = !!user && user.name === venue.owner?.name;
 
-  function handleBook() {
-    console.log({
-      dateFrom: range?.from,
-      dateTo: range?.to,
-      guests,
-      venueId: venue.id,
-    });
+  async function handleBook() {
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+
+    if (!range?.from || !range?.to) return;
+
+    setBookingError("");
+    setIsSuccess(false);
+    setIsBooking(true);
+
+    try {
+      await createBooking(
+        {
+          dateFrom: range.from.toISOString(),
+          dateTo: range.to.toISOString(),
+          guests,
+          venueId: venue.id,
+        },
+        user.accessToken,
+      );
+      setIsSuccess(true);
+      setRange(undefined);
+      setIsCalendarOpen(false);
+      router.refresh();
+    } catch (error) {
+      if (error instanceof AuthError) {
+        router.push("/login");
+        return;
+      }
+      setBookingError(
+        error instanceof Error ? error.message : "Something went wrong.",
+      );
+    } finally {
+      setIsBooking(false);
+    }
   }
 
   if (isOwner) {
@@ -114,13 +152,27 @@ export default function BookingCard({ venue }: BookingCardProps) {
           </button>
         </div>
       </div>
+
+      {bookingError && (
+        <p role="alert" className="text-sm text-error">
+          {bookingError}
+        </p>
+      )}
+      {isSuccess && (
+        <p role="status" className="text-sm text-success">
+          Your booking is confirmed!{" "}
+          <Link href="/profile" className="underline">
+            See your bookings
+          </Link>
+        </p>
+      )}
       <button
         type="button"
         onClick={handleBook}
-        disabled={!range?.from || !range?.to}
+        disabled={!range?.from || !range?.to || isBooking}
         className="cursor-pointer rounded-md bg-accent py-3 text-white hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60"
       >
-        Book now
+        {isBooking ? "Booking..." : "Book now"}
       </button>
     </section>
   );
