@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Booking, Venue } from "@/app/types/venue";
+import type { Booking, Venue } from "@/app/types/holidaze";
 import ProfileBookings from "./ProfileBookings";
 import ManagerVenues from "./ManagerVenues";
 

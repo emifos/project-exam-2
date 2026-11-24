@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { Profile } from "@/app/types/venue";
+import type { Profile } from "@/app/types/holidaze";
 import { useAuth } from "../context/AuthContext";
 import { updateProfile, type ProfileUpdate } from "@/app/lib/profile";
 import { AuthError } from "@/app/lib/api";

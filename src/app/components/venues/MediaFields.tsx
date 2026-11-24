@@ -1,5 +1,5 @@
 import { ImagePlus, X } from "lucide-react";
-import type { Media } from "@/app/types/venue";
+import type { Media } from "@/app/types/holidaze";
 
 type MediaFieldsProps = {
   media: Media[];

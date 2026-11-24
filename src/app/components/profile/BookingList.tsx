@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import type { Booking } from "@/app/types/venue";
+import type { Booking } from "@/app/types/holidaze";
 import { formShortDate } from "@/app/lib/utils";
 
 type BookingListProps = {

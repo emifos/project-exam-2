@@ -1,4 +1,4 @@
-import type { Booking } from "../types/venue";
+import type { Booking } from "../types/holidaze";
 import { authFetch } from "./api";
 
 export type BookingRequest = {

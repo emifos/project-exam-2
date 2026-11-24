@@ -4,7 +4,7 @@ import { DayPicker, type DateRange } from "react-day-picker";
 import "react-day-picker/style.css";
 import "./BookingCalendar.css";
 import { X } from "lucide-react";
-import type { Booking } from "@/app/types/venue";
+import type { Booking } from "@/app/types/holidaze";
 
 type BookingCalendarProps = {
   selected: DateRange | undefined;

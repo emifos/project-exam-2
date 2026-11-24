@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Pencil, Trash2 } from "lucide-react";
-import type { Venue } from "@/app/types/venue";
+import type { Venue } from "@/app/types/holidaze";
 import { useAuth } from "../context/AuthContext";
 import { deleteVenue } from "@/app/lib/venues";
 import { AuthError } from "@/app/lib/api";

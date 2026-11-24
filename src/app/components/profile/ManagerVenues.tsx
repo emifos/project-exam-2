@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import type { Venue } from "@/app/types/venue";
+import type { Venue } from "@/app/types/holidaze";
 import VenueList from "./VenueList";
 import VenueBookingsDetails from "./VenueBookingsDetails";
 

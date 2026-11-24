@@ -1,4 +1,4 @@
-import type { Booking, Profile, Venue, Media } from "../types/venue";
+import type { Booking, Profile, Venue, Media } from "../types/holidaze";
 import { authFetch } from "./api";
 
 export async function getProfile(

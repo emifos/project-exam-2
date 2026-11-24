@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import type { Media, VenueMeta, Venue } from "@/app/types/venue";
+import type { Media, VenueMeta, Venue } from "@/app/types/holidaze";
 import { useAuth } from "../context/AuthContext";
 import { createVenue, updateVenue } from "@/app/lib/venues";
 import { AuthError } from "@/app/lib/api";

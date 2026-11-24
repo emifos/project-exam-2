@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import type { Booking } from "@/app/types/venue";
+import type { Booking } from "@/app/types/holidaze";
 import { formDate, getNights } from "@/app/lib/utils";
 import VenueImage from "../venues/VenueImage";
 

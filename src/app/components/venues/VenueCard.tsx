@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MapPin, Star, Users } from "lucide-react";
-import type { Venue } from "@/app/types/venue";
+import type { Venue } from "@/app/types/holidaze";
 import VenueImage from "./VenueImage";
 
 type VenueCardProps = {

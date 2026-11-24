@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ChevronDown, Pencil } from "lucide-react";
-import type { Venue } from "@/app/types/venue";
+import type { Venue } from "@/app/types/holidaze";
 import { getUpcomingBookings } from "@/app/lib/utils";
 
 type VenueListProps = {

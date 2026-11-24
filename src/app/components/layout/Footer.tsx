@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { FaFacebook, FaInstagram, FaEnvelope } from "react-icons/fa";
@@ -37,6 +35,7 @@ export default function Footer() {
               <li key={label}>
                 <Link
                   href={href}
+                  prefetch={false}
                   aria-label={label}
                   className="text-ink hover:text-accent"
                 >
@@ -52,6 +51,7 @@ export default function Footer() {
               <li key={link.label}>
                 <Link
                   href={link.href}
+                  prefetch={false}
                   className="text-sm text-ink hover:text-accent"
                 >
                   {link.label}

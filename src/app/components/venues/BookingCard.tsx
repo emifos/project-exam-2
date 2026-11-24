@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { DateRange } from "react-day-picker";
 import { CalendarDays, Minus, Plus } from "lucide-react";
-import type { Venue } from "@/app/types/venue";
+import type { Venue } from "@/app/types/holidaze";
 import BookingCalendar from "./BookingCalendar";
 import { createBooking } from "@/app/lib/bookings";
 import { useAuth } from "../context/AuthContext";

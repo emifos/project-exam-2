@@ -1,4 +1,4 @@
-import type { Venue, VenueRequest } from "../types/venue";
+import type { Venue, VenueRequest } from "../types/holidaze";
 import { apiFetch, authFetch } from "./api";
 
 export async function getVenues(): Promise<Venue[]> {

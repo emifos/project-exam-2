@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { Booking, Profile, Venue } from "@/app/types/venue";
+import type { Booking, Profile, Venue } from "@/app/types/holidaze";
 import { useAuth } from "../context/AuthContext";
 import {
   getProfile,

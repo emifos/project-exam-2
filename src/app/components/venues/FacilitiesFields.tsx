@@ -1,4 +1,4 @@
-import type { VenueMeta } from "@/app/types/venue";
+import type { VenueMeta } from "@/app/types/holidaze";
 import { amenities } from "@/app/lib/amenities";
 
 type FacilitiesFieldsProps = {

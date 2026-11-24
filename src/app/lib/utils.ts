@@ -1,4 +1,4 @@
-import type { Booking } from "../types/venue";
+import type { Booking } from "../types/holidaze";
 
 export function getUpcomingBookings(bookings: Booking[] = []) {
   const today = new Date();

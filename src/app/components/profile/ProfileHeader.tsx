@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Pencil } from "lucide-react";
-import type { Profile } from "@/app/types/venue";
+import type { Profile } from "@/app/types/holidaze";
 
 type ProfileHeaderProps = {
   profile: Profile;

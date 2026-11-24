@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { Media } from "@/app/types/venue";
+import type { Media } from "@/app/types/holidaze";
 import VenueImage from "./VenueImage";
 
 type VenueGalleryProps = {

@@ -1,5 +1,5 @@
 import { MapPin, Star } from "lucide-react";
-import type { Venue } from "@/app/types/venue";
+import type { Venue } from "@/app/types/holidaze";
 
 type VenueHeaderProps = {
   venue: Venue;
