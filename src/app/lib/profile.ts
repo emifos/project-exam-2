@@ -1,4 +1,4 @@
-import type { Booking, Profile, Venue } from "../types/venue";
+import type { Booking, Profile, Venue, Media } from "../types/venue";
 import { authFetch } from "./api";
 
 export async function getProfile(
@@ -47,6 +47,32 @@ export async function getProfileVenues(
 
   if (!response.ok || !json) {
     throw new Error(json?.errors?.[0]?.message ?? "Could not load venues.");
+  }
+
+  return json.data;
+}
+
+export type ProfileUpdate = {
+  avatar?: Media;
+  banner?: Media;
+};
+
+export async function updateProfile(
+  name: string,
+  data: ProfileUpdate,
+  accessToken: string | undefined,
+): Promise<Profile> {
+  const response = await authFetch(`/holidaze/profiles/${name}`, accessToken, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+
+  const json = await response.json().catch(() => null);
+
+  if (!response.ok || !json) {
+    throw new Error(
+      json?.errors?.[0]?.message ?? "Could not update your profile.",
+    );
   }
 
   return json.data;

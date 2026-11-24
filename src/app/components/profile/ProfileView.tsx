@@ -13,6 +13,7 @@ import { AuthError } from "@/app/lib/api";
 import ProfileHeader from "./ProfileHeader";
 import ProfileBookings from "./ProfileBookings";
 import ManagerProfile from "./ManagerProfile";
+import EditProfileModal from "./EditProfileModal";
 
 export default function ProfileView() {
   const { user } = useAuth();
@@ -21,6 +22,7 @@ export default function ProfileView() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [venues, setVenues] = useState<Venue[]>([]);
   const [error, setError] = useState("");
+  const [isEditOpen, setIsEditOpen] = useState(false);
 
   useEffect(() => {
     if (user === undefined) return;
@@ -64,11 +66,22 @@ export default function ProfileView() {
 
   return (
     <div className="flex flex-col gap-6">
-      <ProfileHeader profile={profile} />
+      <ProfileHeader profile={profile} onEdit={() => setIsEditOpen(true)} />
       {profile.venueManager ? (
         <ManagerProfile venues={venues} bookings={bookings} />
       ) : (
         <ProfileBookings bookings={bookings} />
+      )}
+
+      {isEditOpen && (
+        <EditProfileModal
+          profile={profile}
+          onClose={() => setIsEditOpen(false)}
+          onSaved={(updated) => {
+            setProfile(updated);
+            setIsEditOpen(false);
+          }}
+        />
       )}
     </div>
   );

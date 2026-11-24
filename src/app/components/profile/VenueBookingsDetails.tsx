@@ -81,9 +81,9 @@ export default function VenueBookingsDetails({
                       <p className="truncate text-sm text-ink">
                         {booking.customer?.name ?? "Guest"}
                       </p>
-                      <p className="flex flex-wrap gap-x-2 gap-y-0.5 text-xs text-slate">
+                      <p className="flex flex-col text-xs text-slate sm:flex-row sm:flex-wrap sm:gap-x-3">
                         <span>Check-in: {formDate(booking.dateFrom)} </span>
-                        <span>Check-out:{formDate(booking.dateTo)}</span>
+                        <span>Check-out: {formDate(booking.dateTo)}</span>
                         <span>
                           · {booking.guests}{" "}
                           {booking.guests === 1 ? "guests" : "guests"}
