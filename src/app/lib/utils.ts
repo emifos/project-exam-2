@@ -1,3 +1,10 @@
+import type { Booking } from "../types/venue";
+
+export function getUpcomingBookings(bookings: Booking[] = []) {
+  const today = new Date();
+  return bookings.filter((bookings) => new Date(bookings.dateTo) >= today);
+}
+
 export function formDate(date: string) {
   return new Date(date).toLocaleDateString("en-GB");
 }

@@ -30,7 +30,7 @@ export default function BookingList({
     >
       <div className="flex items-center justify-between">
         <h2 id="bookings-heading" className="text-lg text-ink">
-          Your bookings
+          My bookings
         </h2>
         <div className="flex items-center gap-2">
           <span className="text-ink">{bookings.length}</span>
