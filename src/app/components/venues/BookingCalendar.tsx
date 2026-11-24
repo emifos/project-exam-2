@@ -42,6 +42,7 @@ export default function BookingCalendar({
       </button>
       <DayPicker
         mode="range"
+        min={1}
         selected={selected}
         onSelect={onSelect}
         disabled={[{ before: today }, ...bookedRanges]}

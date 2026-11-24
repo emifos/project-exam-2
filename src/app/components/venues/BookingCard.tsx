@@ -10,6 +10,7 @@ import BookingCalendar from "./BookingCalendar";
 import { createBooking } from "@/app/lib/bookings";
 import { useAuth } from "../context/AuthContext";
 import { AuthError } from "@/app/lib/api";
+import { getNights } from "@/app/lib/utils";
 
 type BookingCardProps = {
   venue: Venue;
@@ -80,6 +81,11 @@ export default function BookingCard({ venue }: BookingCardProps) {
       </section>
     );
   }
+
+  const nights =
+    range?.from && range?.to
+      ? getNights(range.from.toISOString(), range.to.toISOString())
+      : 0;
 
   return (
     <section
@@ -169,7 +175,7 @@ export default function BookingCard({ venue }: BookingCardProps) {
       <button
         type="button"
         onClick={handleBook}
-        disabled={!range?.from || !range?.to || isBooking}
+        disabled={nights < 1 || isBooking}
         className="cursor-pointer rounded-md bg-accent py-3 text-white hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isBooking ? "Booking..." : "Book now"}
