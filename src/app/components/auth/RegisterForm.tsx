@@ -80,7 +80,7 @@ export default function RegisterForm() {
       });
 
       setSuccessMessage("Account created! Redirecting to login...");
-      router.push("/login");
+      router.push(accountType === "manager" ? "/login?role=manager" : "/login");
     } catch (error) {
       setFormError(
         error instanceof Error

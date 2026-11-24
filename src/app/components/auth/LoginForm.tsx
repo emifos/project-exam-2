@@ -9,11 +9,17 @@ import { useAuth } from "../context/AuthContext";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export default function LoginForm() {
+type LoginFormProps = {
+  initialAccountType?: "customer" | "manager";
+};
+
+export default function LoginForm({
+  initialAccountType = "customer",
+}: LoginFormProps) {
   const router = useRouter();
   const { login } = useAuth();
   const [accountType, setAccountType] = useState<"customer" | "manager">(
-    "customer",
+    initialAccountType,
   );
 
   const [formData, setFormData] = useState({
