@@ -174,24 +174,26 @@ export default function BookingConfirmModal({
             </p>
           </div>
           <div className="flex w-full items-center gap-4 rounded-3xl bg-success-light p-4 text-left">
-            <div className="relative aspect-16/10 w-28 shrink-0 overflow-hidden rounded-xl bg-accent/10">
+            <div className="relative aspect-16/10 w-24 shrink-0 overflow-hidden rounded-xl bg-accent/10 sm:w-28">
               <VenueImage
                 src={venue.media?.[0]?.url}
                 alt={venue.media?.[0]?.alt || venue.name}
-                sizes="96px"
+                sizes="112px"
               />
             </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-sm text-ink">{venue.name}</p>
-              {location && <p className="text-xs text-slate">{location}</p>}
-            </div>
-            <div className="text-right text-xs text-ink">
-              <p>
-                {formDate(from)} - {formDate(to)}
-              </p>
-              <p>
-                {guests} {guests === 1 ? "guest" : "guests"}
-              </p>
+            <div className=" flex min-w-0 flex-1 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div className="min-w-0">
+                <p className="text-sm text-ink">{venue.name}</p>
+                {location && <p className="text-xs text-slate">{location}</p>}
+              </div>
+              <div className="shrink-0 text-xs text-ink sm:text-right">
+                <p className="mt-2 text-xs text-ink">
+                  {formDate(from)} - {formDate(to)}
+                </p>
+                <p className="text-xs text-ink">
+                  {guests} {guests === 1 ? "guest" : "guests"}
+                </p>
+              </div>
             </div>
           </div>
           <Link
