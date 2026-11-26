@@ -1,5 +1,6 @@
 import Breadcrumbs from "@/app/components/ui/Breadcrumbs";
 import VenueForm from "@/app/components/venues/VenueForm";
+import ManagerGuard from "@/app/components/auth/ManagerGuard";
 
 export default function CreateVenuePage() {
   return (
@@ -7,16 +8,18 @@ export default function CreateVenuePage() {
       <Breadcrumbs
         items={[{ label: "Home", href: "/" }, { label: "Create venue" }]}
       />
-      <div className="flex flex-col gap-6 rounded-3xl bg-white p-6 shadow-lg md:p-10">
-        <header className="flex flex-col gap-1">
-          <h1 className="mb-2 text-2xl text-primary">Create a venue</h1>
-          <p className="text-sm text-slate">
-            Add your property details to publish a new listing
-          </p>
-        </header>
-        <hr className="border-line" />
-        <VenueForm />
-      </div>
+      <ManagerGuard>
+        <div className="flex flex-col gap-6 rounded-3xl bg-white p-6 shadow-lg md:p-10">
+          <header className="flex flex-col gap-1">
+            <h1 className="mb-2 text-2xl text-primary">Create a venue</h1>
+            <p className="text-sm text-slate">
+              Add your property details to publish a new listing
+            </p>
+          </header>
+          <hr className="border-line" />
+          <VenueForm />
+        </div>
+      </ManagerGuard>
     </main>
   );
 }

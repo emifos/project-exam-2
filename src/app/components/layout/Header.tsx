@@ -92,7 +92,7 @@ export default function Header() {
             <li>
               <button
                 onClick={handleLogout}
-                className="text-ink hover:text-accent"
+                className="text-ink hover:text-accent cursor-pointer"
               >
                 Log out
               </button>
