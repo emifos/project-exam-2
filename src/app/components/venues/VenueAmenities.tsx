@@ -10,7 +10,7 @@ export default function VenueAmenities({ meta }: VenueAmenitiesProps) {
 
   return (
     <section className="flex flex-col gap-3">
-      <h2 className="text-2xl text-ink mt-6 mb-1">What this place offers</h2>
+      <h2 className="text-xl text-ink mt-6 mb-1">What this place offers</h2>
       {available.length > 0 ? (
         <ul className="grid grid-cols-2 gap-3 mb-8 font-light">
           {available.map(({ key, label, icon: Icon }) => (

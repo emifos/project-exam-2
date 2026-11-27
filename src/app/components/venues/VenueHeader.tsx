@@ -14,7 +14,7 @@ export default function VenueHeader({ venue }: VenueHeaderProps) {
 
   return (
     <header className="flex flex-col gap-2">
-      <h1 className="text-2xl text-primary md:text-3xl">{venue.name}</h1>
+      <h1 className="text-2xl text-primary">{venue.name}</h1>
       <div className="flex flex-wrap items-center gap-4 text-sm text-slate mb-2">
         {venue.rating > 0 && (
           <p className="flex items-center gap-1 text-ink text-lg">
