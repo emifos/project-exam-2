@@ -73,7 +73,6 @@ export default function VenueBookingsDetails({
                           fill
                           sizes="40px"
                           className="object-cover"
-                          unoptimized
                         />
                       )}
                     </div>

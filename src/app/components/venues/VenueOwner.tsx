@@ -25,7 +25,6 @@ export default function VenueOwner({ owner }: VenueOwnerProps) {
               fill
               sizes="56px"
               className="object-cover"
-              unoptimized
             />
           )}
         </div>
